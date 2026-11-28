@@ -73,14 +73,23 @@ def parser(description, default_n=1, temperature=0.0, max_tokens=8192):
     # format-sensitive scores are comparable with IFEval. Recorded in the manifest.
     p.add_argument("--think-off", action="store_true",
                    help="Send chat_template_kwargs.enable_thinking=false (Qwen models)")
+    p.add_argument("--reasoning-effort", default=None,
+                   help="Send reasoning_effort (e.g. low/medium/high) for reasoning models")
+    p.add_argument("--reasoning-budget", type=int, default=0,
+                   help="Send reasoning_budget when >0 and not --think-off")
     return p
 
 
 def complete(args, messages, top_p=1.0, *, bounded=False):
     body = {"model": args.model, "messages": messages, "temperature": args.temperature,
             "top_p": top_p, "max_tokens": args.max_tokens, "n": 1, "stream": False}
+    if getattr(args, "reasoning_effort", None):
+        body["reasoning_effort"] = args.reasoning_effort
     if getattr(args, "think_off", False):
         body["chat_template_kwargs"] = {"enable_thinking": False}
+    reasoning_budget = int(getattr(args, "reasoning_budget", 0) or 0)
+    if reasoning_budget > 0 and not getattr(args, "think_off", False):
+        body["reasoning_budget"] = reasoning_budget
     headers = {"Content-Type": "application/json"}
     if os.environ.get("OPENAI_API_KEY"):
         headers["Authorization"] = "Bearer " + os.environ["OPENAI_API_KEY"]
@@ -138,7 +147,9 @@ def initialize(args, protocol, data_path, total):
     config = {"protocol": protocol, "data_sha256": digest(data_path), "total": total,
               "limit": args.limit, "model": args.model, "base_url": args.base_url,
               "n": args.n, "temperature": args.temperature, "max_tokens": args.max_tokens,
-              "think_off": bool(getattr(args, "think_off", False))}
+              "think_off": bool(getattr(args, "think_off", False)),
+              "reasoning_effort": getattr(args, "reasoning_effort", None),
+              "reasoning_budget": int(getattr(args, "reasoning_budget", 0) or 0)}
     path = args.output / "manifest.json"
     if path.exists() and json.loads(path.read_text()) != config:
         raise ValueError("Output configuration differs; use a new directory and identical flags for every stage")

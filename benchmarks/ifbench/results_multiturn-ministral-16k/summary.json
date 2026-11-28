@@ -1,0 +1,35 @@
+{
+  "suite": "IFBench multi-turn",
+  "model": "ministral-3-8b-instruct-2512-abliterated",
+  "n": 1387,
+  "full_run": true,
+  "protocol": {
+    "suite": "IFBench multi-turn",
+    "official_revision": "488918665d53f867fa908a293769ec6e71e74aec",
+    "temperature": 0,
+    "top_p": 1,
+    "nltk_data_revision": "550b6625bcef1f2abff2ff770a5a0d272c9c6b2a",
+    "history": "released messages including fixed assistant turn",
+    "primary_metric": "prompt_loose",
+    "generation_policy": "bounded-v1",
+    "request_timeout_seconds": 600,
+    "token_limit_policy": "score returned final text; continue",
+    "timeout_policy": "score empty response; continue; report separately",
+    "answer_extraction": "message.content only; reasoning_content saved separately",
+    "dataset": "allenai/IFBench_multi-turn",
+    "dataset_revision": "e1ea65c5178fbeac522a26d12b8c71a298e9846d",
+    "config": "ifbench_constraints",
+    "split": "test"
+  },
+  "max_tokens": 4096,
+  "request_timeout_seconds": 600,
+  "generation": {
+    "token_limited": 8,
+    "timed_out": 0,
+    "empty_answers": 0
+  },
+  "prompt_strict": 0.2876712328767123,
+  "instruction_strict": 0.2876712328767123,
+  "prompt_loose": 0.4246575342465753,
+  "instruction_loose": 0.4246575342465753
+}

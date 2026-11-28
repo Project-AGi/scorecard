@@ -1,0 +1,13 @@
+{
+ "label": "gemma-rs-modal-ifeval",
+ "model": "gemma-4-26b-styletune-v2-rs",
+ "n": 541,
+ "think_off": false,
+ "run_fingerprint": "2f2d29985aa0cce9a66dce0ca528c18bd93c8cd7a4d00298deb17fc72923e6c2",
+ "limit": 0,
+ "smoke": false,
+ "truncated": 2,
+ "strict": 0.8817,
+ "loose": 0.8983,
+ "elapsed_s": 9599.9
+}

@@ -1,0 +1,13 @@
+{
+ "label": "joyfox-rs-modal-ifeval",
+ "model": "joyfox-qwen3.6-rp-rs",
+ "n": 541,
+ "think_off": false,
+ "run_fingerprint": "d290fb27c28d688ee3b4880569771c214923b8c9f796534328d32bd9ac424490",
+ "limit": 0,
+ "smoke": false,
+ "truncated": 23,
+ "strict": 0.8318,
+ "loose": 0.8595,
+ "elapsed_s": 4589.3
+}

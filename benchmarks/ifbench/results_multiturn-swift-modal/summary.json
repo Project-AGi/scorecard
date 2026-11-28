@@ -1,0 +1,36 @@
+{
+  "suite": "IFBench multi-turn",
+  "model": "swift15-qwen3.8-27b-local",
+  "n": 1387,
+  "full_run": true,
+  "protocol": {
+    "suite": "IFBench multi-turn",
+    "official_revision": "488918665d53f867fa908a293769ec6e71e74aec",
+    "temperature": 0,
+    "top_p": 1,
+    "nltk_data_revision": "550b6625bcef1f2abff2ff770a5a0d272c9c6b2a",
+    "history": "released messages including fixed assistant turn",
+    "primary_metric": "prompt_loose",
+    "generation_policy": "bounded-v1",
+    "request_timeout_seconds": 1200,
+    "token_limit_policy": "score returned final text; continue",
+    "timeout_policy": "score empty response; continue; report separately",
+    "answer_extraction": "message.content only; reasoning_content saved separately",
+    "thinking": "disabled via chat_template_kwargs.enable_thinking=false",
+    "dataset": "allenai/IFBench_multi-turn",
+    "dataset_revision": "e1ea65c5178fbeac522a26d12b8c71a298e9846d",
+    "config": "ifbench_constraints",
+    "split": "test"
+  },
+  "max_tokens": 8192,
+  "request_timeout_seconds": 1200,
+  "generation": {
+    "token_limited": 5,
+    "timed_out": 0,
+    "empty_answers": 0
+  },
+  "prompt_strict": 0.4441240086517664,
+  "instruction_strict": 0.4441240086517664,
+  "prompt_loose": 0.5140591204037491,
+  "instruction_loose": 0.5140591204037491
+}

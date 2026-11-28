@@ -62,6 +62,11 @@ def run(multiturn=None):
                 "answer_extraction": "message.content only; reasoning_content saved separately"}
     if getattr(args, "think_off", False):
         protocol["thinking"] = "disabled via chat_template_kwargs.enable_thinking=false"
+    if getattr(args, "reasoning_effort", None):
+        protocol["reasoning_effort"] = args.reasoning_effort
+    reasoning_budget = int(getattr(args, "reasoning_budget", 0) or 0)
+    if reasoning_budget > 0:
+        protocol["reasoning_budget"] = reasoning_budget
     if multiturn:
         path = download(f"https://huggingface.co/datasets/allenai/IFBench_multi-turn/resolve/{MULTITURN_REVISION}/ifbench_constraints/test-00000-of-00001.parquet",
                         HERE / ".cache" / f"ifbench-multiturn-{MULTITURN_REVISION}.parquet")

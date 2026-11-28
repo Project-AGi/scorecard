@@ -1,0 +1,31 @@
+{
+  "protocol": {
+    "suite": "IFBench single-turn",
+    "official_revision": "488918665d53f867fa908a293769ec6e71e74aec",
+    "temperature": 0,
+    "top_p": 1,
+    "nltk_data_revision": "550b6625bcef1f2abff2ff770a5a0d272c9c6b2a",
+    "history": "single user prompt",
+    "primary_metric": "prompt_loose",
+    "generation_policy": "bounded-v1",
+    "request_timeout_seconds": 1200,
+    "token_limit_policy": "score returned final text; continue",
+    "timeout_policy": "score empty response; continue; report separately",
+    "answer_extraction": "message.content only; reasoning_content saved separately",
+    "reasoning_effort": "low",
+    "reasoning_budget": 2048,
+    "dataset": "data/IFBench_test.jsonl",
+    "dataset_revision": "488918665d53f867fa908a293769ec6e71e74aec"
+  },
+  "data_sha256": "d2ada7da94a38cfe406351614c4e686846ed2da6d1b339db95fa5ead19554a4a",
+  "total": 300,
+  "limit": 0,
+  "model": "swift15-qwen3.8-27b-local",
+  "base_url": "https://oppa-ai-org--grace-llm-serve-serve-swift.us-east.modal.run/v1",
+  "n": 1,
+  "temperature": 0.0,
+  "max_tokens": 14336,
+  "think_off": false,
+  "reasoning_effort": "low",
+  "reasoning_budget": 2048
+}

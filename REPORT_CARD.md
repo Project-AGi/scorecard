@@ -89,8 +89,9 @@ Full JSON in `results/inference_perf/<label>/summary.json`.
 | neohorse-1-4b | NeoHorse 4B Q4_K_M (2.6 GB) | 512 / 2048 / 8192 | 2,264 / 3,685 / 4,713 | 88.4 / 87.2 / 82.1 | 262.9 / 607.4 / 1,935.1 ms | 3.9 GB | 1.9 / 2.7 / 4.2 GB |
 | agents-a1-4b | Agents A1 4B Q4_K_M (2.6 GB) | 512 / 2048 / 8192 | 2,325 / 3,493 / 4,660 | 88.8 / 88.2 / 82.9 | 361.9 / 710.2 / 1,947.0 ms | 3.9 GB | 2.0 / 3.1 / 4.8 GB |
 | agents-a1-4b + mmproj | Agents A1 4B Q4_K_M + mmproj (3.2 GB) | 512 / 2048 / 8192 | 2,337 / 3,503 / 4,594 | 88.8 / 88.4 / 81.2 | 359.4 / 707.6 / 1,968.7 ms | 4.8 GB | 2.1 / 3.2 / 4.9 GB |
+| inkling-2-mini-uncensored | Inkling-2-Mini-Uncensored AD-Q4_K + mmproj BF16 (16 GB, RustingStrata 1.4.2, ngram-simple, vrm128) | 512 / 2048 / 8192 | 234 / 276 / 238 | 42.7 / 36.1 / 37.3 | 2,332.6 / 7,551.1 / 34,616.9 ms | 10.8 / 10.8 / 10.8 GB | 15.6 / 15.7 / 15.8 GB |
 
-minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses the least VRAM/RAM despite Q8_0. neohorse and agents-a1 are within ~3% of each other. Adding the Agents A1 mmproj costs ~0.9 GB VRAM with no measurable speed change (text throughput unaffected).
+minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses the least VRAM/RAM despite Q8_0. neohorse and agents-a1 are within ~3% of each other. Adding the Agents A1 mmproj costs ~0.9 GB VRAM with no measurable speed change (text throughput unaffected). Inkling-2-Mini uncensored is much heavier (16 GB, RustingStrata) with slower prefill/decode but larger context-capable architecture.
 
 ### Agentic models — inference perf (RustingStrata 1.4.2, ctx 16384, temp 0, 256 output, 2 reps)
 
@@ -99,7 +100,8 @@ minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses t
 - **Occamy i1 Q4_K_M**: `ngram, vrm256, chunk2048, mtp0, short32` — `strata-occamy-1.0-abliterated-safetensors.i1-Q4_K_M.json`
 - **Occamy apex Q6_K**: `ngram, vrm512, chunk2048, mtp0, short32` — `strata-occamy-1.0-abliterated-APEX-I-QUALITY-Q6_K.json`
 - **JoyFox Q6_K**: `MTP+ngram, vrm512, chunk4096, mtp2, short32` — `strata-JoyFox-Qwen3.6-35B-A3B-RP-Aggressive.i1-Q6_K.json`
-- **Gemma 4 26B A4B StyleTune V2 Q6_K**: `ngram, chunk512, mtp0, short32` (sweep running) — `strata-Gemma-4-26B-A4B-StyleTune-V2.i1-Q6_K.json`
+- **Gemma 4 26B A4B StyleTune V2 Q6_K**: `ngram, chunk512, mtp0, short32` (local sweep anomalous/regressed; prior 111.5 tok/s@8K kept as reference) — `strata-Gemma-4-26B-A4B-StyleTune-V2.i1-Q6_K.json`
+- **Inkling-2-Mini-Uncensored-AD-Q4_K**: `ngram-simple, vrm128, chunk256, mtp0, short32` — `strata-Inkling-2-Mini-Uncensored-AD-Q4_K.json`
 
 | Model | Quant | Speculation | Decode@512/2K/8K | Prefill@512/2K/8K | TTFT@512/2K/8K | VRAM |
 |---|---|---|---:|---:|---:|---:|
@@ -171,7 +173,8 @@ arm because the arms disagree by more than any other benchmark here.
 
 | Model | n | Strict | Loose | Time |
 |---|---:|---:|---:|---:|
-| minicpm5-2b | 541 | **85.6** | **87.2** | 82 min |
+| gemma-4-26b-styletune-v2-rs (Modal) | 541 | **88.2** | **89.8** | 172 min |
+| minicpm5-2b | 541 | 85.6 | 87.2 | 82 min |
 | swift | 541 | 82.1 | 86.9 | API, rate-limited |
 | neohorse-1-4b | 541 | 79.1 | 83.0 | 113 min |
 | agents-a1-4b | 541 | 76.3 | 81.2 | 117 min |
